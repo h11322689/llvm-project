@@ -10,8 +10,8 @@ build_llvm() {
     fi
 
     cmake ../ -S llvm -B build_llvm -G Ninja     \
-        -DLLVM_PARALLEL_COMPILE_JOBS=6          \
-        -DLLVM_PARALLEL_LINK_JOBS=4             \
+        -DLLVM_PARALLEL_COMPILE_JOBS=6           \
+        -DLLVM_PARALLEL_LINK_JOBS=4              \
         -DCMAKE_INSTALL_PREFIX="/home/lih/work/llvm-project/install_debug" \
         -DCMAKE_BUILD_TYPE=Debug                \
         -DLLVM_ENABLE_PROJECTS="clang;lld;clang-tools-extra;compiler-rt;lldb;mlir;openmp"              \
@@ -22,12 +22,12 @@ build_llvm() {
         -DLLVM_CCACHE_BUILD=ON                  \
         -DLLVM_INSTALL_UTILS=ON                 \
         -DLLVM_INCLUDE_TESTS=ON                 \
-#	-DLLVM_USE_LINKER=lld                   \
+ 	-DLLVM_USE_LINKER=lld                   \
 	-DLLVM_TARGETS_TO_BUILD="X86;AMDGPU"    \
         -DCLANG_BUILD_EXAMPLES=ON               
         
     cd build_llvm 
-    ninja install -j4
+    ninja install -j8
 
     end_time=$(date +%s)                            # Record end time
     duration=$((end_time - start_time))             # Calculate duration in seconds
