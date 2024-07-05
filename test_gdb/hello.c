@@ -1,11 +1,11 @@
 /*************************************************************************
-	> File Name: hello.c
-	> Author: Lihao
-	> Mail: h11322689@gmail.com 
-	> Created Time: Wed 03 Jul 2024 03:08:18 PM CST
+    > File Name: hello.c
+    > Author: Lihao
+    > Mail: h11322689@gmail.com 
+    > Created Time: Wed 03 Jul 2024 03:08:18 PM CST
  ************************************************************************/
 
-#include <stdio.h>
+#include <stdio.h>  // 这里应该是 #include 不是 include
 
 // 定义一个结构体来表示学生信息
 struct Student {
@@ -56,9 +56,7 @@ int main() {
 
     // 使用指针
     int *ptr = &num1;
-    printf("num1 的地址：%p, 值：%d\n", ptr, *ptr);
+    printf("num1 的地址：%p, 值：%d\n", (void *)ptr, *ptr);  // 为了避免编译器警告，显式进行类型转换
 
     return 0;
 }
-
-
