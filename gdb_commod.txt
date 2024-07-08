@@ -1,0 +1,6 @@
+gdb clang
+b ParseStmt.cpp:302
+r -cc1 -fsyntax-only min.c
+...
+213    return ParseIfStatement(TrailingElseLoc);
+backtrace
