@@ -1050,30 +1050,30 @@ bool FrontendAction::BeginSourceFile(CompilerInstance &CI,
 }
 
 llvm::Error FrontendAction::Execute() {
-  CompilerInstance &CI = getCompilerInstance();
+  	CompilerInstance &CI = getCompilerInstance();
 
-  if (CI.hasFrontendTimer()) {
-    llvm::TimeRegion Timer(CI.getFrontendTimer());
-    ExecuteAction();
-  }
-  else ExecuteAction();
+  	if (CI.hasFrontendTimer()) {
+    	llvm::TimeRegion Timer(CI.getFrontendTimer());
+    	ExecuteAction();
+  	}
+  	else ExecuteAction();
 
-  // If we are supposed to rebuild the global module index, do so now unless
-  // there were any module-build failures.
-  if (CI.shouldBuildGlobalModuleIndex() && CI.hasFileManager() &&
-      CI.hasPreprocessor()) {
-    StringRef Cache =
-        CI.getPreprocessor().getHeaderSearchInfo().getModuleCachePath();
-    if (!Cache.empty()) {
-      if (llvm::Error Err = GlobalModuleIndex::writeIndex(
-              CI.getFileManager(), CI.getPCHContainerReader(), Cache)) {
-        // FIXME this drops the error on the floor, but
-        // Index/pch-from-libclang.c seems to rely on dropping at least some of
-        // the error conditions!
-        consumeError(std::move(Err));
-      }
-    }
-  }
+  	// If we are supposed to rebuild the global module index, do so now unless
+  	// there were any module-build failures.
+  	if (CI.shouldBuildGlobalModuleIndex() && CI.hasFileManager() &&
+      	CI.hasPreprocessor()) {
+    	StringRef Cache =
+        	CI.getPreprocessor().getHeaderSearchInfo().getModuleCachePath();
+    	if (!Cache.empty()) {
+      		if (llvm::Error Err = GlobalModuleIndex::writeIndex(
+              	CI.getFileManager(), CI.getPCHContainerReader(), Cache)) {
+        		// FIXME this drops the error on the floor, but
+        		// Index/pch-from-libclang.c seems to rely on dropping at least some of
+        		// the error conditions!
+        		consumeError(std::move(Err));
+      		}
+    	}
+  	}
 
   return llvm::Error::success();
 }

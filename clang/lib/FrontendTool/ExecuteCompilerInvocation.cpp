@@ -271,7 +271,7 @@ bool ExecuteCompilerInvocation(CompilerInstance *Clang) {
     return false;
   bool Success = Clang->ExecuteAction(*Act);
   if (Clang->getFrontendOpts().DisableFree)
-    llvm::BuryPointer(std::move(Act));
+      llvm::BuryPointer(std::move(Act));
   return Success;
 }
 

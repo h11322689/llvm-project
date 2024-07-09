@@ -1050,10 +1050,10 @@ bool CompilerInstance::ExecuteAction(FrontendAction &Act) {
       getSourceManager().clearIDTables();
 
     if (Act.BeginSourceFile(*this, FIF)) {
-      if (llvm::Error Err = Act.Execute()) {
-        consumeError(std::move(Err)); // FIXME this drops errors on the floor.
-      }
-      Act.EndSourceFile();
+      	if (llvm::Error Err = Act.Execute()) {
+        	consumeError(std::move(Err)); // FIXME this drops errors on the floor.
+      	}
+      	Act.EndSourceFile();
     }
   }
 
