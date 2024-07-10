@@ -9,7 +9,7 @@ backtrace
 
 
 gdb clang
-b CGStmt.cpp:130
+b CGStmt.cpp:151
 r -cc1 -emit-obj min.c
 ...
 130  case Stmt::IfStmtClass:       EmitIfStmt(cast<IfStmt>(*S));             break;
