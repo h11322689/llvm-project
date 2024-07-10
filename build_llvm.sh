@@ -10,12 +10,13 @@ build_llvm() {
     fi
 
     cmake ../ -S llvm -B build_llvm -G Ninja    \
-        -DLLVM_PARALLEL_COMPILE_JOBS=4          \
-        -DLLVM_PARALLEL_LINK_JOBS=2             \
+        -DLLVM_PARALLEL_COMPILE_JOBS=16          \
+        -DLLVM_PARALLEL_LINK_JOBS=14             \
         -DCMAKE_INSTALL_PREFIX="/home/lih/work/llvm-project/install_debug"                                             \
         -DCMAKE_BUILD_TYPE=Debug                \
         -DLLVM_ENABLE_PROJECTS="clang;bolt;lld;clang-tools-extra;compiler-rt;lldb;mlir;openmp;polly;pstl"              \
         -DLLVM_ENABLE_RUNTIMES=all              \
+	-DLLVM_ENABLE_ASSERTIONS=ON             \
         -DLLVM_BUILD_EXAMPLES=ON                \
         -DLLVM_BUILD_TESTS=ON                   \
         -DLLVM_BUILD_BENCHMARKS=ON              \
@@ -27,7 +28,7 @@ build_llvm() {
         -DCLANG_BUILD_EXAMPLES=ON               
         
     cd build_llvm 
-    ninja install -j2
+    ninja install -j14
 
     end_time=$(date +%s)                            # Record end time
     duration=$((end_time - start_time))             # Calculate duration in seconds

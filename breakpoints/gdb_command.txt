@@ -5,3 +5,23 @@ r -cc1 -fsyntax-only min.c
 ...
 213    return ParseIfStatement(TrailingElseLoc);
 backtrace
+
+
+
+gdb clang
+b CGStmt.cpp:130
+r -cc1 -emit-obj min.c
+...
+130  case Stmt::IfStmtClass:       EmitIfStmt(cast<IfStmt>(*S));             break;
+backtrace
+#0 clang::CodeGen::CodeGenFunction::EmitStmt
+#1 clang::CodeGen::CodeGenFunction::EmitCompoundStmtWithoutScope
+#2 clang::CodeGen::CodeGenFunction::EmitFunctionBody
+#3 clang::CodeGen::CodeGenFunction::GenerateCode
+#4 clang::CodeGen::CodeGenModule::EmitGlobalFunctionDefinition
+#5 clang::CodeGen::CodeGenModule::EmitGlobalDefinition
+#6 clang::CodeGen::CodeGenModule::EmitGlobal
+#7 clang::CodeGen::CodeGenModule::EmitTopLevelDecl
+#8 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl
+#9 clang::BackendConsumer::HandleTopLevelDecl
+#10 clang::ParseAST
