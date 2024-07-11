@@ -24,4 +24,5 @@ backtrace
 #7 clang::CodeGen::CodeGenModule::EmitTopLevelDecl
 #8 (anonymous namespace)::CodeGeneratorImpl::HandleTopLevelDecl
 #9 clang::BackendConsumer::HandleTopLevelDecl
-#10 clang::ParseAST
+#10 clang::ParseAST:q
+
