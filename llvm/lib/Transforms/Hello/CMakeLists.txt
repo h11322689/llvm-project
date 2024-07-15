@@ -1,3 +1,5 @@
+# Hello pass用于打印出内部函数，不会修改程序，只是监视作用
+
 # If we don't need RTTI or EH, there's no reason to export anything
 # from the hello plugin.
 if( NOT LLVM_REQUIRES_RTTI )
