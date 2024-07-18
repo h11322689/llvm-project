@@ -12,7 +12,7 @@ build_llvm() {
     cmake ../ -S llvm -B build_llvm -G Ninja    \
         -DLLVM_PARALLEL_COMPILE_JOBS=6          \
         -DLLVM_PARALLEL_LINK_JOBS=4             \
-        -DCMAKE_INSTALL_PREFIX="/home/lih/work/llvm-project/install_debug"                                             \
+        -DCMAKE_INSTALL_PREFIX="/home/lihao/work/llvm-project/install_debug"                                             \
         -DCMAKE_BUILD_TYPE=Debug                \
         -DLLVM_ENABLE_PROJECTS="clang;bolt;lld;clang-tools-extra;compiler-rt;lldb;mlir;openmp;polly;pstl"              \
         -DLLVM_ENABLE_RUNTIMES=all              \
