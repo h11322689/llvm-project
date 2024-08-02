@@ -35,93 +35,93 @@ namespace llvm {
 /// rounding mode value, so it does not need to fit the bit fields.
 ///
 enum class RoundingMode : int8_t {
-  // Rounding mode defined in IEEE-754.
-  TowardZero        = 0,    ///< roundTowardZero.
-  NearestTiesToEven = 1,    ///< roundTiesToEven.
-  TowardPositive    = 2,    ///< roundTowardPositive.
-  TowardNegative    = 3,    ///< roundTowardNegative.
-  NearestTiesToAway = 4,    ///< roundTiesToAway.
+  	// Rounding mode defined in IEEE-754.
+  	TowardZero        = 0,    ///< roundTowardZero.
+  	NearestTiesToEven = 1,    ///< roundTiesToEven.
+  	TowardPositive    = 2,    ///< roundTowardPositive.
+  	TowardNegative    = 3,    ///< roundTowardNegative.
+  	NearestTiesToAway = 4,    ///< roundTiesToAway.
 
-  // Special values.
-  Dynamic = 7,    ///< Denotes mode unknown at compile time.
-  Invalid = -1    ///< Denotes invalid value.
+  	// Special values.
+  	Dynamic = 7,    ///< Denotes mode unknown at compile time.
+  	Invalid = -1    ///< Denotes invalid value.
 };
 
 /// Returns text representation of the given rounding mode.
 inline StringRef spell(RoundingMode RM) {
-  switch (RM) {
-  case RoundingMode::TowardZero: return "towardzero";
-  case RoundingMode::NearestTiesToEven: return "tonearest";
-  case RoundingMode::TowardPositive: return "upward";
-  case RoundingMode::TowardNegative: return "downward";
-  case RoundingMode::NearestTiesToAway: return "tonearestaway";
-  case RoundingMode::Dynamic: return "dynamic";
-  default: return "invalid";
-  }
+  	switch (RM) {
+  		case RoundingMode::TowardZero: return "towardzero";
+  		case RoundingMode::NearestTiesToEven: return "tonearest";
+  		case RoundingMode::TowardPositive: return "upward";
+  		case RoundingMode::TowardNegative: return "downward";
+  		case RoundingMode::NearestTiesToAway: return "tonearestaway";
+  		case RoundingMode::Dynamic: return "dynamic";
+  		default: return "invalid";
+  	}
 }
 
 inline raw_ostream &operator << (raw_ostream &OS, RoundingMode RM) {
-  OS << spell(RM);
-  return OS;
+  	OS << spell(RM);
+  	return OS;
 }
 
 /// Represent subnormal handling kind for floating point instruction inputs and
 /// outputs.
 struct DenormalMode {
-  /// Represent handled modes for denormal (aka subnormal) modes in the floating
-  /// point environment.
-  enum DenormalModeKind : int8_t {
-    Invalid = -1,
+  	/// Represent handled modes for denormal (aka subnormal) modes in the floating
+  	/// point environment.
+  	enum DenormalModeKind : int8_t {
+    	Invalid = -1,
 
-    /// IEEE-754 denormal numbers preserved.
-    IEEE,
+    	/// IEEE-754 denormal numbers preserved.
+    	IEEE,
 
-    /// The sign of a flushed-to-zero number is preserved in the sign of 0
-    PreserveSign,
+    	/// The sign of a flushed-to-zero number is preserved in the sign of 0
+    	PreserveSign,
 
-    /// Denormals are flushed to positive zero.
-    PositiveZero,
+    	/// Denormals are flushed to positive zero.
+    	PositiveZero,
 
-    /// Denormals have unknown treatment.
-    Dynamic
-  };
+    	/// Denormals have unknown treatment.
+    	Dynamic
+  	};
 
-  /// Denormal flushing mode for floating point instruction results in the
-  /// default floating point environment.
-  DenormalModeKind Output = DenormalModeKind::Invalid;
+  	/// Denormal flushing mode for floating point instruction results in the
+  	/// default floating point environment.
+  	DenormalModeKind Output = DenormalModeKind::Invalid;
 
-  /// Denormal treatment kind for floating point instruction inputs in the
-  /// default floating-point environment. If this is not DenormalModeKind::IEEE,
-  /// floating-point instructions implicitly treat the input value as 0.
-  DenormalModeKind Input = DenormalModeKind::Invalid;
+  	/// Denormal treatment kind for floating point instruction inputs in the
+  	/// default floating-point environment. If this is not DenormalModeKind::IEEE,
+  	/// floating-point instructions implicitly treat the input value as 0.
+  	DenormalModeKind Input = DenormalModeKind::Invalid;
 
-  constexpr DenormalMode() = default;
-  constexpr DenormalMode(DenormalModeKind Out, DenormalModeKind In) :
-    Output(Out), Input(In) {}
+  	constexpr DenormalMode() = default;
+  	constexpr DenormalMode(DenormalModeKind Out, DenormalModeKind In) :
+    	Output(Out), Input(In) {}
 
 
-  static constexpr DenormalMode getInvalid() {
-    return DenormalMode(DenormalModeKind::Invalid, DenormalModeKind::Invalid);
-  }
+  	static constexpr DenormalMode getInvalid() {
+    	return DenormalMode(DenormalModeKind::Invalid, DenormalModeKind::Invalid);
+  	}
 
-  /// Return the assumed default mode for a function without denormal-fp-math.
-  static constexpr DenormalMode getDefault() {
-    return getIEEE();
-  }
+  	/// Return the assumed default mode for a function without denormal-fp-math.
+  	static constexpr DenormalMode getDefault() {
+    	return getIEEE();
+  	}
 
-  static constexpr DenormalMode getIEEE() {
-    return DenormalMode(DenormalModeKind::IEEE, DenormalModeKind::IEEE);
-  }
+  	static constexpr DenormalMode getIEEE() {
+    	return DenormalMode(DenormalModeKind::IEEE, DenormalModeKind::IEEE);
+  	}
 
-  static constexpr DenormalMode getPreserveSign() {
-    return DenormalMode(DenormalModeKind::PreserveSign,
-                        DenormalModeKind::PreserveSign);
-  }
+  	static constexpr DenormalMode getPreserveSign() {
+    	return DenormalMode(DenormalModeKind::PreserveSign,
+                        	DenormalModeKind::PreserveSign);
+  	}
 
-  static constexpr DenormalMode getPositiveZero() {
-    return DenormalMode(DenormalModeKind::PositiveZero,
-                        DenormalModeKind::PositiveZero);
-  }
+  	static constexpr DenormalMode getPositiveZero() {
+    	return DenormalMode(DenormalModeKind::PositiveZero,
+                        	DenormalModeKind::PositiveZero);
+  	}
 
   static constexpr DenormalMode getDynamic() {
     return DenormalMode(DenormalModeKind::Dynamic, DenormalModeKind::Dynamic);
