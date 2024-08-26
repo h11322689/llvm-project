@@ -16,20 +16,20 @@ build_llvm() {
         -DCMAKE_BUILD_TYPE=Debug                \
         -DLLVM_ENABLE_PROJECTS="clang;bolt;lld;clang-tools-extra;compiler-rt;lldb;mlir;openmp;polly;pstl"              \
         -DLLVM_ENABLE_RUNTIMES=all              \
-	    -DLLVM_ENABLE_ASSERTIONS=ON             \
+	-DLLVM_ENABLE_ASSERTIONS=ON             \
         -DLLVM_BUILD_EXAMPLES=ON                \
         -DLLVM_BUILD_TESTS=ON                   \
         -DLLVM_BUILD_BENCHMARKS=ON              \
         -DLLVM_CCACHE_BUILD=ON                  \
         -DLLVM_INSTALL_UTILS=ON                 \
         -DLLVM_INCLUDE_TESTS=ON                 \
- 	    -DLLVM_USE_LINKER=lld                   \
-	    -DLLVM_TARGETS_TO_BUILD="X86;AMDGPU"    \
-	    -BUILD_SHARED_LIBS=ON                   \
+ 	-DLLVM_USE_LINKER=lld                   \
+	-DLLVM_TARGETS_TO_BUILD="X86;AMDGPU"    \
+	-BUILD_SHARED_LIBS=ON                   \
         -DLLVM_OPTIMIZED_TABLEGEN=ON            \
-	    -DLLVM_USE_SPLIT_DWARF=ON               \
-	    -DLLVM_ENABLE_THREADS=OFF               \
-	    -DCLANG_BUILD_EXAMPLES=ON               
+	-DLLVM_USE_SPLIT_DWARF=ON               \
+	-DLLVM_ENABLE_THREADS=OFF               \
+	-DCLANG_BUILD_EXAMPLES=ON               
         
     cd build_llvm 
     ninja install -j4
