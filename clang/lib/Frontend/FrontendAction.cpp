@@ -211,11 +211,15 @@ FrontendAction::CreateWrappedASTConsumer(CompilerInstance &CI,
          ActionType == PluginASTAction::AddAfterMainAction) &&
         P->ParseArgs(
             CI,
-            CI.getFrontendOpts().PluginArgs[std::string(Plugin.getName())])) {
+            CI.getFrontendOpts().PluginArgs[std::string(Plugin.getName())])) 
+    {
       std::unique_ptr<ASTConsumer> PluginConsumer = P->CreateASTConsumer(CI, InFile);
-      if (ActionType == PluginASTAction::AddBeforeMainAction) {
+      if (ActionType == PluginASTAction::AddBeforeMainAction) 
+      {
         Consumers.push_back(std::move(PluginConsumer));
-      } else {
+      } 
+      else 
+      {
         AfterConsumers.push_back(std::move(PluginConsumer));
       }
     }
